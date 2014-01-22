@@ -1,0 +1,56 @@
+<div ng-controller="NewProductCtrl">
+		<form class="form-horizontal" name="frmProduct" ng-submit="submitForm()" novalidate>
+
+		<!-- NAME -->
+		<div class="form-group" ng-class="{ 'has-error' : frmProduct.name.$invalid && !frmProduct.name.$pristine }">
+			<label for="name" class="col-sm-2">Name</label>
+			<div class="col-sm-10">
+				<input type="text" name="name" class="form-control" ng-model="product.name" ensure-unique="username" required>
+				<span ng-show="frmProduct.name.$invalid && !frmProduct.name.$pristine" class="help-block">You name is required.</span>            	
+			</div>
+		</div>
+		
+		<!-- DESCRIPTION -->
+		<div class="form-group" ng-class="{ 'has-error' : frmProduct.description.$invalid && !frmProduct.description.$pristine }">
+			<label for="description" class="col-sm-2">Desription</label>
+			<div class="col-sm-10">
+				<input type="text" name="description" class="form-control" ng-model="product.description" ng-maxlength="100">
+				<span ng-show="frmProduct.description.$error.maxlength" class="help-block">Username is too long.</span>
+			</div>
+		</div>
+		
+		<!-- PROVEEDOR -->
+		<div class="form-group" ng-class="{ 'has-error' : frmProduct.proveedor.$invalid && !frmProduct.proveedor.$pristine }">
+			<label for="service_id" class="col-sm-2">Proveedor</label>
+			<div class="col-sm-10">
+				<select name="service_id" class="form-control" ng-model="product.ServiceID" ng-options="service.ServiceID as service.ServiceName for service in services" required> 
+					<option value="">Select Service</option> 
+				</select> 
+				<span ng-show="frmProduct.service_id.$error.required" class="help-block">Select service</span>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-disabled="frmProduct.$invalid"><span class="glyphicon glyphicon-plus-sign"></span>Submit</button>
+		<button class="btn btn-default" ng-click="removeAll()"><span class="glyphicon glyphicon-remove-sign"></span>Remove All</button>
+	</form>
+
+	<div class="form-group">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Product Name</th>
+					<th>Product Type</th>
+					<th>Product Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="product in productsCollection">
+					<td>1</td>
+					<td>{{product.name}}</td>
+					<td>{{product.ServiceID}}</td>
+					<td>{{product.description}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
