@@ -13,9 +13,12 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
+
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/controls.css">
     <!-- endbuild -->
@@ -24,9 +27,17 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
-
+    
     <div class="header" data-ng-include="'./templates/navigate_tpl.html'">
-    </div>
+    </div>  
+
+    <ul class="list-unstyled keepcentered">
+        <li ng-repeat="(id, notification) in growlNotifications.notifications">
+            <div class="alert alert-{{notification.type}}">
+                <div ng-bind-html="notification.message"></div>
+            </div>
+        </li>
+    </ul>
 
     <!-- Add your site or application content here -->
     <div ng-view="" class="container reveal-animation"></div>
@@ -36,7 +47,7 @@
      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
      ga('create', 'UA-XXXXX-X');
      ga('send', 'pageview');
@@ -57,6 +68,9 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-growl/build/angular-growl.js"></script>
+    <script src="bower_components/angular-growl-notifications/dist/growl-notifications.js"></script>
+    <script src="bower_components/ngAnimate-animate.css/animate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -68,8 +82,8 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/store.js"></script>
     <script src="scripts/controllers/orders.js"></script>
-    <script src="scripts/controllers/products.js"></script>
-    <script src="scripts/controllers/new-product.js"></script>
+    <script src="scripts/controllers/products/products.js"></script>
+    <script src="scripts/controllers/products/new-product.js"></script>
     <script src="scripts/controls.js"></script>
     <script src="scripts/services/productservice.js"></script>
     <!-- endbuild -->

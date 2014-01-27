@@ -6,3 +6,48 @@ input.ng-valid.ng-dirty,
 select.ng-valid {
 	border: 1px solid green;
 }
+
+
+.repeat-item.ng-enter,
+.repeat-item.ng-leave {
+	-webkit-transition:0.5s linear all;
+	transition:0.5s linear all;
+}
+
+.repeat-item.ng-enter,
+.repeat-item.ng-leave.ng-leave-active {
+	opacity:0;
+}
+.repeat-item.ng-leave,
+.repeat-item.ng-enter.ng-enter-active {
+	opacity:1;
+}
+
+/* Animations to Messages */
+.alert-message .ng-enter{
+	-webkit-animation: fadeInDown 1s;
+	-moz-animation: fadeInDown 1s;
+	-ms-animation: fadeInDown 1s;
+	animation: fadeInDown 1s;
+}
+.alert-message .ng-leave{
+	-webkit-animation: fadeOut 1s;
+	-moz-animation: fadeOut 1s;
+	-ms-animation: fadeOut 1s;
+	animation: fadeOut 1s;
+}
+
+.alert-message {
+	position: fixed;
+	top: 80px;
+	right: 0;
+	z-index: 9999;
+	/*
+	position: fixed;
+	left: auto;
+	top: 15%;
+	margin-left: auto;
+	width: 400px;
+	z-index: 9999;
+	*/
+}

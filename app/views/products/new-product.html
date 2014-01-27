@@ -1,0 +1,84 @@
+<div ng-controller="NewProductCtrl">
+ 
+	<div growl-notifications class="alert-message fade" ng-class="{in:growlNotifications}"></div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Register Products</h3>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal"  method="post" name="frmProduct" ng-submit="submitForm()" novalidate>	
+				<!-- NAME -->
+				<div class="form-group" ng-class="{ 'has-error' : frmProduct.name.$invalid && !frmProduct.name.$pristine }">
+					<label for="name" class="col-sm-2">Name</label>
+					<div class="col-sm-10">
+						<input type="text" name="name" class="form-control" ng-model="product.name" ensure-unique="username" required>
+						<span ng-show="frmProduct.name.$invalid && !frmProduct.name.$pristine" class="help-block">You name is required.</span>            	
+					</div>
+				</div>
+
+				<!-- DESCRIPTION -->
+				<div class="form-group" ng-class="{ 'has-error' : frmProduct.description.$invalid && !frmProduct.description.$pristine }">
+					<label for="description" class="col-sm-2">Desription</label>
+					<div class="col-sm-10">
+						<input type="text" name="description" class="form-control" ng-model="product.description" ng-maxlength="100">
+						<span ng-show="frmProduct.description.$error.maxlength" class="help-block">Username is too long.</span>
+					</div>
+				</div>
+
+				<!-- PROVEEDOR -->
+				<div class="form-group" ng-class="{ 'has-error' : frmProduct.proveedor.$invalid && !frmProduct.proveedor.$pristine }">
+					<label for="service_id" class="col-sm-2">Proveedor</label>
+					<div class="col-sm-10">
+						<select name="service_id" class="form-control" ng-model="product.ServiceID" ng-options="service.ServiceID as service.ServiceName for service in services" required> 
+							<option value="">Select Service</option> 
+						</select> 
+						<span ng-show="frmProduct.service_id.$error.required" class="help-block">Select service</span>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary" ng-disabled="frmProduct.$invalid"><span class="glyphicon glyphicon-plus-sign"></span>Submit</button>
+				<button type="button" class="btn btn-default" ng-click="removeAll()"><span class="glyphicon glyphicon-remove-sign"></span>Remove All</button>
+			</form>
+		</div>
+	</div>
+
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Products List Collection</h3>
+		</div>
+		<div class="panel-body">
+	    	<form class="form-inline" role="form">
+		    	<label class="sr-only" for="filterName">Email address</label>
+		    	<div class="input-group">
+		    		<span class="input-group-addon"><i class="fa fa-filter"></i></span>
+		    		<input type="text" class="form-control" id="filterName" placeholder="Filer Mail" ng-model="search.name">
+		    	</div>
+			</form>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+						<th>Product Type</th>
+						<th>Product Description</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in productsCollection| filter:search" class="repeat-item">
+						<td>{{row.name}}</td>
+						<td>{{row.ServiceID}}</td>
+						<td>{{row.description}}</td>
+						<td>
+							<button type="button" ng-click="edit(row)"><i class="fa fa-edit"></i></button>
+							<button type="button" ng-click="remove(row)"><i class="fa fa-eraser"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+  		</div>	
+	</div>
+
+</div>

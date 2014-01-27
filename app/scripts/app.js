@@ -6,10 +6,17 @@
 		'ngSanitize',
 		'ngAnimate',
 		'ngRoute',
+		'growlNotifications',
 		'ui',
 		'ui.bootstrap',
 		'ui.bootstrap.modal'
 		])
+
+	.run(['$animate', function($animate){
+		$animate.enabled(true);
+		console.log('Animation enabled: ' + $animate.enabled());
+	}])
+
 	.config(function ($routeProvider) {
 		$routeProvider
 		.when('/home', {
@@ -25,11 +32,11 @@
 			controller: 'OrdersCtrl'
 		})
 		.when('/products', {
-			templateUrl: 'views/products.html',
+			templateUrl: 'views/products/products.html',
 			controller: 'ProductsCtrl'
 		})
 		.when('/products/new-product', {
-			templateUrl: 'views/new-product.html',
+			templateUrl: 'views/products/new-product.html',
 			controller: 'NewProductCtrl'
 		})
 		.when('/api/check/:username', {
@@ -41,8 +48,13 @@
 		});
 	})
 
+	.config(['growlNotificationsProvider', function(growlNotificationsProvider){
+		growlNotificationsProvider.ttl(2000);
+		growlNotificationsProvider.type('warning');
+	}])
+
 	/* Selected li from navigator */
-	.controller('navCtrl', ['$scope', '$location','$log', function ($scope, $location,$log) {
+	.controller('navCtrl', function ($scope, $location,$log) {
 		$scope.navClass = function (page) {
 			var currentRoute = $location.path().substring(1) || 'home';    
 			var regexp = new RegExp('^' + page.replace('/', '\\/') + '$');
@@ -54,5 +66,32 @@
 				return '';
 			}
 		};        
-	}])
-	;
+	})
+;
+
+angular.module('appstoreApp').animation('.my-crazy-animation', function() {
+    return {
+      enter: function(element, done) {
+        //run the animation here and call done when the animation is complete
+        return function(cancelled) {
+          //this (optional) function will be called when the animation
+          //completes or when the animation is cancelled (the cancelled
+          //flag will be set to true if cancelled).
+        };
+      },
+      leave: function(element, done) { },
+      move: function(element, done) { },
+ 
+      //animation that can be triggered before the class is added
+      beforeAddClass: function(element, className, done) { },
+ 
+      //animation that can be triggered after the class is added
+      addClass: function(element, className, done) { },
+ 
+      //animation that can be triggered before the class is removed
+      beforeRemoveClass: function(element, className, done) { },
+ 
+      //animation that can be triggered after the class is removed
+      removeClass: function(element, className, done) { }
+    };
+  });
